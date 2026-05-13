@@ -1,0 +1,32 @@
+[
+  {
+    "id": "hello_world_py",
+    "input": "Write a Python script that prints 'Hello, World!' exactly.",
+    "expected": "Hello, World!",
+    "tags": ["python", "trivial"]
+  },
+  {
+    "id": "fibonacci_py",
+    "input": "Write a Python script that prints the first 10 Fibonacci numbers, one per line.",
+    "expected": "0\n1\n1\n2\n3\n5\n8\n13\n21\n34",
+    "tags": ["python", "algorithm"]
+  },
+  {
+    "id": "sort_list",
+    "input": "Write a Python script that sorts the list [3,1,4,1,5,9,2,6] and prints the result.",
+    "expected": "[1, 1, 2, 3, 4, 5, 6, 9]",
+    "tags": ["python", "algorithm"]
+  },
+  {
+    "id": "word_count",
+    "input": "Write a Python script that counts words in the string 'the quick brown fox jumps over the lazy dog' and prints the count.",
+    "expected": "9",
+    "tags": ["python", "string"]
+  },
+  {
+    "id": "rest_api_quality",
+    "input": "Build a production-ready FastAPI REST API for a todo app with CRUD operations, input validation, and error handling.",
+    "expected": null,
+    "tags": ["python", "fastapi", "production", "preference-only"]
+  }
+]

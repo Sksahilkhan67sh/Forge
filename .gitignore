@@ -1,0 +1,14 @@
+
+.env
+.env.local
+**/.env
+**/.env.local
+.env
+.env.local
+.env*.local
+**/.env
+**/.env.local
+frontend/.next/
+backend/**/__pycache__/
+backend/**/*.pyc
+node_modules/
