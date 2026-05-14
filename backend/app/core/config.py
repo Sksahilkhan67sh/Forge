@@ -17,8 +17,8 @@ class Settings(BaseSettings):
 
     # Redis
     redis_url: str = "redis://localhost:6379/0"
-upstash_redis_rest_url: str = ""
-upstash_redis_rest_token: str = ""
+    upstash_redis_rest_url: str = ""
+    upstash_redis_rest_token: str = ""
 
     # Model APIs
     anthropic_api_key: str = ""
