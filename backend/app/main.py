@@ -24,11 +24,9 @@ async def lifespan(app: FastAPI):
         log.info("forge_ready")
     except Exception as e:
         log.error("startup_error", error=str(e))
-        log.info("forge_ready_without_db")
     yield
     log.info("forge_shutdown")
     await engine.dispose()
-
 
 app = FastAPI(
     title="Forge API",
