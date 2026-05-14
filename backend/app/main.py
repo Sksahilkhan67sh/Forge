@@ -18,10 +18,13 @@ log = get_logger(__name__)
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     log.info("forge_starting", env=settings.app_env)
-    # Create tables (use Alembic in production instead)
-    async with engine.begin() as conn:
-    await conn.run_sync(Base.metadata.create_all)
-    log.info("forge_ready")
+    try:
+        async with engine.begin() as conn:
+            await conn.run_sync(Base.metadata.create_all)
+        log.info("forge_ready")
+    except Exception as e:
+        log.error("startup_error", error=str(e))
+        log.info("forge_ready_without_db")
     yield
     log.info("forge_shutdown")
     await engine.dispose()
@@ -29,13 +32,11 @@ async def lifespan(app: FastAPI):
 
 app = FastAPI(
     title="Forge API",
-    description="AI coding platform — streaming, agents, RAG, and sandboxed execution",
+    description="AI coding platform",
     version="0.1.0",
     lifespan=lifespan,
-    docs_url="/docs" if not settings.is_production else None,
+    docs_url="/docs" if not settings.is_production else "/docs",
 )
-
-# ── Middleware ────────────────────────────────────────────────────────────────
 
 app.add_middleware(
     CORSMiddleware,
@@ -64,14 +65,12 @@ async def request_logging(request: Request, call_next):
 
 @app.exception_handler(Exception)
 async def global_exception_handler(request: Request, exc: Exception):
-    log.error("unhandled_error", path=request.url.path, error=str(exc), exc_info=True)
+    log.error("unhandled_error", path=request.url.path, error=str(exc))
     return JSONResponse(
         status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
         content={"detail": "Internal server error"},
     )
 
-
-# ── Routes ────────────────────────────────────────────────────────────────────
 
 app.include_router(auth.router, prefix="/api/v1")
 app.include_router(chat.router, prefix="/api/v1")
