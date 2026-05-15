@@ -93,9 +93,9 @@ export default function ChatWindow({ sessionId }: Props) {
 
   // Token stats
   const tokenStats = sessionMessages.filter(m => m.role === 'assistant').reduce((acc, m) => ({
-    tokens: acc.tokens + (m.tokens_out || 0),
+    tokens: acc.tokens + ((m as any).tokens_out || 0),
     responses: acc.responses + 1,
-    latency: acc.latency + (m.latency_ms || 0),
+    latency: acc.latency + ((m as any).latency_ms || 0),
   }), { tokens: 0, responses: 0, latency: 0 })
 
   if (loading) return (
