@@ -259,7 +259,7 @@ export default function Sidebar() {
                   borderRadius: 7, color: '#818cf8',
                   fontSize: 12, display: 'flex', alignItems: 'center', gap: 6,
                   cursor: creatingChat ? 'not-allowed' : 'pointer',
-                  fontFamily: 'EspoirRounded', serif: 'all 0.12s',
+                  fontFamily: 'EspoirRounded', transition: 'all 0.12s',
                 }}
                 onMouseEnter={e => (e.currentTarget.style.background = 'rgba(99,102,241,0.18)')}
                 onMouseLeave={e => (e.currentTarget.style.background = 'rgba(99,102,241,0.1)')}
