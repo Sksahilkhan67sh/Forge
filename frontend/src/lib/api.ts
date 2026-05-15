@@ -37,6 +37,7 @@ export interface Message {
   model_used: string | null
   tokens_in: number | null
   tokens_out: number | null
+  latency_ms: number | null
   created_at: string
 }
 

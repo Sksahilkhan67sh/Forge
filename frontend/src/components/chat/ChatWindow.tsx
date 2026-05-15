@@ -71,7 +71,7 @@ export default function ChatWindow({ sessionId }: Props) {
     appendMessage(sessionId, {
       id: crypto.randomUUID(), role: 'user',
       content: { text }, model_used: null,
-      tokens_in: null, tokens_out: null,
+      tokens_in: null, tokens_out: null, latency_ms: null,
       created_at: new Date().toISOString(),
     })
     setStreaming(true); setThinking(true)
@@ -93,9 +93,9 @@ export default function ChatWindow({ sessionId }: Props) {
 
   // Token stats
   const tokenStats = sessionMessages.filter(m => m.role === 'assistant').reduce((acc, m) => ({
-    tokens: acc.tokens + ((m as any).tokens_out || 0),
+    tokens: acc.tokens + (m.tokens_out || 0),
     responses: acc.responses + 1,
-    latency: acc.latency + ((m as any).latency_ms || 0),
+    latency: acc.latency + (m.latency_ms || 0),
   }), { tokens: 0, responses: 0, latency: 0 })
 
   if (loading) return (
@@ -187,7 +187,7 @@ export default function ChatWindow({ sessionId }: Props) {
           {streaming && displayedText && (
             <div style={{ animation: 'fade-in 0.15s ease both' }}>
               <MessageBubble
-                message={{ id: 'streaming', role: 'assistant', content: { text: displayedText }, model_used: null, tokens_in: null, tokens_out: null, created_at: new Date().toISOString() }}
+                message={{ id: 'streaming', role: 'assistant', content: { text: displayedText }, model_used: null, tokens_in: null, tokens_out: null, latency_ms: null, created_at: new Date().toISOString() }}
                 isStreaming
               />
             </div>
